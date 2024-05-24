@@ -33,29 +33,65 @@ function Register() {
         })
         .then(response => response.json())
         .then(result => {
-            setJsonResponse(result)
+            if(result.status) {
+                alert(result.message);
+                navigate('/');
+            } else {
+                alert(result.message);
+            }
             console.log(result)
         });
     };
 
-    return(
-        <div id="register">
-            <h2>Register</h2>
-                <Form>
-                    <Form.Group className='mb-3' controlId='exampleForm.ControlInput1'>
-                        <Form.Control type='text' name='username' value={userInputs.username} onChange={HandleChange} placeholder='Define a username' />
-                        <br />
-                        <Form.Control type='email' name='email' value={userInputs.email} onChange={HandleChange} placeholder='Write your e-mail' />
-                        <br />
-                        <Form.Control type='password' name='password' value={userInputs.password} onChange={HandleChange} placeholder='Define a password' />
-                        <br />
-                        <Form.Control type='password' name='confirmPassword' value={userInputs.confirmPassword} onChange={HandleChange} placeholder='Confirm password' />
-                        <br />
-                        <Button variant="primary" type="submit" onClick={HandleSubmit}> Submit </Button>
-                    </Form.Group>
-                </Form>
-            <div style={{height: "400px"}}/>
-        </div>
+    return (
+      <div id="register">
+        <h2>Register</h2>
+        <Form>
+          <Form.Group className="mb-3">
+            <Form.Control
+              type="text"
+              name="username"
+              value={userInputs.username}
+              onChange={HandleChange}
+              placeholder="Define a username"
+              id='usernameArea'
+            />
+            <br />
+            <Form.Control
+              type="email"
+              name="email"
+              value={userInputs.email}
+              onChange={HandleChange}
+              placeholder="Write your e-mail"
+              id='emailArea'
+            />
+            <br />
+            <Form.Control
+              type="password"
+              name="password"
+              value={userInputs.password}
+              onChange={HandleChange}
+              placeholder="Define a password"
+              id='passwordArea'
+            />
+            <br />
+            <Form.Control
+              type="password"
+              name="confirmPassword"
+              value={userInputs.confirmPassword}
+              onChange={HandleChange}
+              placeholder="Confirm password"
+              id='confirmPasswordArea'
+            />
+            <br />
+            <Button variant="primary" type="submit" onClick={HandleSubmit}>
+              {" "}
+              Submit{" "}
+            </Button>
+          </Form.Group>
+        </Form>
+        <div style={{ height: "400px" }} />
+      </div>
     );
 };
 

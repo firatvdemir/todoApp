@@ -43,24 +43,40 @@ function Login() {
         });
     };
 
-    return(
-        <div id='login'>
-            <h2>login</h2>
+    return (
+      <div id="login">
+        <h2>login</h2>
 
-            {passwordCheck &&
-            <h3>Wrong Password or Username!</h3>}
+        {passwordCheck && <h3>Wrong Password or Username!</h3>}
 
-            <Form>
-                <Form.Group className='mb-3' controlId='exampleForm.ControlInput1'>
-                    <Form.Control type='text' name='username' value={loginInputs.username} onChange={HandleChange} placeholder='username' />
-                    <br />
-                    <Form.Control type='password' name='password' value={loginInputs.password} onChange={HandleChange} placeholder='password' />
-                    <br />
-                    <Button variant="primary" type="submit" onClick={HandleSubmit}> Submit </Button>
-                </Form.Group>
-            </Form>
-            <div style={{height: "400px"}}/>
-        </div>
+        <Form>
+          <Form.Group className="mb-3">
+            <Form.Control
+              type="text"
+              name="username"
+              value={loginInputs.username}
+              onChange={HandleChange}
+              placeholder="username"
+              id='usernameFormElement'
+            />
+            <br />
+            <Form.Control
+              type="password"
+              name="password"
+              value={loginInputs.password}
+              onChange={HandleChange}
+              placeholder="password"
+              id='passwordFormElement'
+            />
+            <br />
+            <Button variant="primary" type="submit" onClick={HandleSubmit}>
+              {" "}
+              Submit{" "}
+            </Button>
+          </Form.Group>
+        </Form>
+        <div style={{ height: "400px" }} />
+      </div>
     );
 };
 
