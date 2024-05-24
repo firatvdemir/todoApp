@@ -7,3 +7,9 @@ def index(request):
 
 def loginView(request):
     return JsonResponse({"status": "deneme"})
+
+def addItem(request):
+    return JsonResponse({'status': 'add item'})
+
+def register(request):
+    return JsonResponse({'status': 'register'})
