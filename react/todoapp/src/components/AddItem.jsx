@@ -75,7 +75,7 @@ function AddItem() {
                   required
                 />
                 <br />
-                <Form.Label className="addItemLabel">Image or File (image, doc and pdf only)</Form.Label>
+                <Form.Label className="addItemLabel">Image or File</Form.Label>
                 <Form.Control
                   type="file"
                   name="imageUrl"

@@ -28,7 +28,7 @@ function App() {
 
   return (
     <div className="App">
-      <UserContext.Provider value={false} >
+      <UserContext.Provider value={value} >
         <Container fluid>
 
           <Row className="justify-content-md-center">

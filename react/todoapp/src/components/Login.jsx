@@ -1,5 +1,8 @@
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form'
+import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../App';
@@ -45,37 +48,43 @@ function Login() {
 
     return (
       <div id="login">
-        <h2>login</h2>
+
 
         {passwordCheck && <h3>Wrong Password or Username!</h3>}
-
-        <Form>
-          <Form.Group className="mb-3">
-            <Form.Control
-              type="text"
-              name="username"
-              value={loginInputs.username}
-              onChange={HandleChange}
-              placeholder="username"
-              id='usernameFormElement'
-            />
-            <br />
-            <Form.Control
-              type="password"
-              name="password"
-              value={loginInputs.password}
-              onChange={HandleChange}
-              placeholder="password"
-              id='passwordFormElement'
-            />
-            <br />
-            <Button variant="primary" type="submit" onClick={HandleSubmit}>
-              {" "}
-              Submit{" "}
-            </Button>
-          </Form.Group>
-        </Form>
-        <div style={{ height: "400px" }} />
+        <Container fluid>
+          <Row>
+            <Col md={6}>
+            <h3>login</h3>
+              <Form>
+                <Form.Group className="mb-3">
+                  <Form.Control
+                    type="text"
+                    name="username"
+                    value={loginInputs.username}
+                    onChange={HandleChange}
+                    placeholder="username"
+                    id='usernameFormElement'
+                  />
+                  <br />
+                  <Form.Control
+                    type="password"
+                    name="password"
+                    value={loginInputs.password}
+                    onChange={HandleChange}
+                    placeholder="password"
+                    id='passwordFormElement'
+                  />
+                  <br />
+                  <Button variant="primary" type="submit" onClick={HandleSubmit}>
+                    {" "}
+                    Submit{" "}
+                  </Button>
+                </Form.Group>
+              </Form>
+              <p> If you don't have an account, please go to <strong style={{cursor: 'pointer'}} onClick={() => navigate('/register')}>Register</strong> </p>
+            </Col>
+          </Row>
+        </Container>
       </div>
     );
 };
