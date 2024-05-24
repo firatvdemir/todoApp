@@ -45,8 +45,40 @@ def logoutView(request):
     return JsonResponse({"status": "logged out!"})
 
 @csrf_exempt
+def getUserItems(request):
+    if request.method == "POST":
+        username = json.loads(request.body)["username"]
+        usersItems = todoItems.objects.filter(username=username)
+        return JsonResponse({ "usersTodoList": [usersItem.serialize() for usersItem in usersItems] })
+
+@csrf_exempt
 def addItem(request):
-    return JsonResponse({'status': 'add item'})
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        todoId = request.POST.get('todoId')
+        todoBody = request.POST.get('todoBody')
+        todoTag = request.POST.get('todoTag')
+        todoIsChecked = request.POST.get('todoIsChecked')
+        if todoIsChecked == "false":
+            todoIsChecked = False
+        else:
+            todoIsChecked = True
+        todoImage = request.FILES.get('todoImage')
+
+        addTodo = todoItems(
+            username=username,
+            todoTag=todoTag,
+            todoUniqueId=todoId,
+            todoBody=todoBody,
+            todoIsChecked=todoIsChecked,
+            todoImage=todoImage
+        )
+        addTodo.save()
+
+        return JsonResponse({
+            'status': True,
+            'message': 'Todo added!'
+        })
 
 @csrf_exempt
 def register(request):

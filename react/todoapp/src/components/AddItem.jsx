@@ -11,7 +11,7 @@ import { UserContext } from '../App';
 function AddItem() {
     const{isLoggedIn, setIsLoggedIn} = useContext(UserContext);
 
-    const[username, setUsername] = useState( "unkown"  );
+    // const[username, setUsername] = useState( "unkown"  );
     const[todoId, setTodoId] = useState(Date.now());
     const[todoBody, setTodoBody] = useState('');
     const[todoTag, setTodoTag] = useState('');
@@ -24,7 +24,7 @@ function AddItem() {
         e.preventDefault();
 
         const formData = new FormData();
-        formData.append('username', username);
+        formData.append('username', isLoggedIn.username);
         formData.append('todoId', todoId);
         formData.append('todoBody', todoBody);
         formData.append('todoTag', todoTag);
@@ -38,13 +38,12 @@ function AddItem() {
         fetch('http://127.0.0.1:8000/addItem', {
             method:'POST',
             body: formData,
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            }
         })
         .then(response => response.json())
         .then(result => {
-            console.log(result)
+            if(result.status) {
+                alert(result.message);
+            }
         });
         navigate('/')
     }

@@ -48,12 +48,12 @@ function App() {
                         <Button className='navButton' variant="outline-secondary">Register</Button>
                       </Link>}
 
-                      {isLoggedIn.status && <Link to='/logout'>
-                        <Button className='navButton' variant="outline-secondary">Logout</Button>
+                      {isLoggedIn.status && <Link to='/add-item'>
+                        <Button className='navButton' variant="outline-secondary">Add Todo</Button>
                       </Link>}
 
-                      {!isLoggedIn.status && <Link to='/add-item'>
-                        <Button className='navButton' variant="outline-secondary">Add Todo</Button>
+                      {isLoggedIn.status && <Link to='/logout'>
+                        <Button className='navButton' variant="outline-secondary">Logout</Button>
                       </Link>}
                     </Nav>
                 </Col>

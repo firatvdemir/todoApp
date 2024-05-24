@@ -37,6 +37,9 @@ function Login() {
         })
         .then(response => response.json())
         .then(result => {
+            if(result.status) {
+              alert(result.message)
+            }
             setIsLoggedIn({
                 ...isLoggedIn,
                 'status': result.status,
