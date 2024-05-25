@@ -81,6 +81,26 @@ def addItem(request):
         })
 
 @csrf_exempt
+def editItem(request):
+    if request.method == 'POST':
+        username = json.loads(request.body)["username"]
+        todoId = json.loads(request.body)["todoId"]
+        todoIsChecked = json.loads(request.body)["todoIsChecked"]
+
+        usersItem = todoItems.objects.get(username=username, todoUniqueId=todoId)
+        usersItem.todoIsChecked = todoIsChecked
+        usersItem.save()
+
+        usersAllItems = todoItems.objects.filter(username=username)
+
+        return JsonResponse({
+        'status': True,
+        'message': 'Todo added!',
+        'item': usersItem.serialize(),
+        'usersAllItems': [usersItem.serialize() for usersItem in usersAllItems]
+        })
+
+@csrf_exempt
 def register(request):
     if request.method == "POST":
         requestJson = json.loads(request.body)["userInputs"]

@@ -36,26 +36,38 @@ function MainPage() {
 
     const renderTableBody = () => {
 
+        const handleCheckboxChange = (event) => {
+            const todoId = event.target.id;
+            const todoIsChecked = event.target.checked;
+            fetch('http://127.0.0.1:8000/editItem',{
+                method: 'POST',
+                body: JSON.stringify({
+                    username: isLoggedIn.username,
+                    todoId: todoId,
+                    todoIsChecked: todoIsChecked
+                })
+            })
+            .then(response => response.json())
+            .then(result => {
+                if(result.usersAllItems) setUsersItems(result.usersAllItems);
+            });
+        };
+
         const body = usersItems.map( item => {
 
-            const handleCheckboxChange = (event) => {
-                const todoId = event.target.id;
-                const todoIsChecked = event.target.checked;
-              };
-
             return (
-                <tr style={{ color: "white", textAlign: "center"}} key={item.todoUniqueId} >
-                    <td key={item.todoIsChecked}> 
-                    <Form.Check
-                        type="checkbox"
-                        id={item.todoUniqueId}
-                        checked={item.todoIsChecked}
-                        onChange={handleCheckboxChange}
-                    />
-                    </td>
-                    <td key={item.todoTag}> {item.todoTag} </td>
-                    <td key={item.todoBody}> {item.todoBody} </td>
-                </tr>
+                    <tr style={{ color: "black", textAlign: "center", textDecoration: item.todoIsChecked ? 'line-through' : '' }} key={item.todoUniqueId} >
+                        <td>
+                        <Form.Check
+                            type="checkbox"
+                            id={item.todoUniqueId}
+                            checked={item.todoIsChecked}
+                            onChange={handleCheckboxChange}
+                        />
+                        </td>
+                        <td> {item.todoTag}  </td>
+                        <td> {item.todoBody} </td>
+                    </tr>
             )
         });
         return body
