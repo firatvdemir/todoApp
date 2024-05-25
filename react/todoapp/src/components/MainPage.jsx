@@ -3,13 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../App";
 import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
+import EditDeletTodo from "./EditDeleteTodo";
 
 function MainPage() {
     const {isLoggedIn, setIsLoggedIn } = useContext(UserContext);
     const[usersItems, setUsersItems] = useState([]);
-    const [imageSrc, setImageSrc] = useState(null);
+    // const [imageSrc, setImageSrc] = useState(null);
     const navigate = useNavigate();
-    const tableHeaders = ["Done?", "Tag", "Description"];
+    const tableHeaders = ["Done?", "Tag", "Description", ""];
 
     useEffect(() => {
         if(!isLoggedIn.status) navigate('/login');
@@ -26,7 +27,7 @@ function MainPage() {
         .then(result => {
             setUsersItems(result.usersTodoList)
         });
-    }, [])
+    }, [isLoggedIn])
 
     const renderTableHeader = () => (
         <tr>
@@ -44,7 +45,8 @@ function MainPage() {
                 body: JSON.stringify({
                     username: isLoggedIn.username,
                     todoId: todoId,
-                    todoIsChecked: todoIsChecked
+                    todoIsChecked: todoIsChecked,
+                    mode: "checkbox"
                 })
             })
             .then(response => response.json())
@@ -67,6 +69,7 @@ function MainPage() {
                         </td>
                         <td> {item.todoTag}  </td>
                         <td> {item.todoBody} </td>
+                        <td> <EditDeletTodo username = {isLoggedIn.username} todoId={item.todoUniqueId} /> </td>
                     </tr>
             )
         });

@@ -83,22 +83,50 @@ def addItem(request):
 @csrf_exempt
 def editItem(request):
     if request.method == 'POST':
-        username = json.loads(request.body)["username"]
-        todoId = json.loads(request.body)["todoId"]
-        todoIsChecked = json.loads(request.body)["todoIsChecked"]
+        if json.loads(request.body)["mode"] == "checkbox":
+            username = json.loads(request.body)["username"]
+            todoId = json.loads(request.body)["todoId"]
+            todoIsChecked = json.loads(request.body)["todoIsChecked"]
 
-        usersItem = todoItems.objects.get(username=username, todoUniqueId=todoId)
-        usersItem.todoIsChecked = todoIsChecked
-        usersItem.save()
+            usersItem = todoItems.objects.get(username=username, todoUniqueId=todoId)
+            usersItem.todoIsChecked = todoIsChecked
+            usersItem.save()
 
-        usersAllItems = todoItems.objects.filter(username=username)
+            usersAllItems = todoItems.objects.filter(username=username)
 
-        return JsonResponse({
-        'status': True,
-        'message': 'Todo added!',
-        'item': usersItem.serialize(),
-        'usersAllItems': [usersItem.serialize() for usersItem in usersAllItems]
-        })
+            return JsonResponse({
+            'status': True,
+            'message': 'Todo added!',
+            'item': usersItem.serialize(),
+            'usersAllItems': [usersItem.serialize() for usersItem in usersAllItems]
+            })
+        if json.loads(request.body)["mode"] == "getItem":
+            username = json.loads(request.body)["username"]
+            todoId = json.loads(request.body)["todoId"]
+
+            usersItem = todoItems.objects.get(username=username, todoUniqueId=todoId)
+
+            return JsonResponse({
+            'status': True,
+            'message': 'User one item',
+            'item': usersItem.serialize()
+            })
+        if json.loads(request.body)["mode"] == "editItem":
+            username = json.loads(request.body)["todoItem"]["username"]
+            todoId = json.loads(request.body)["todoItem"]["todoUniqueId"]
+            todoTag = json.loads(request.body)["todoItem"]["todoTag"]
+            todoBody = json.loads(request.body)["todoItem"]["todoBody"]
+
+            usersItem = todoItems.objects.get(username=username, todoUniqueId=todoId)
+            usersItem.todoTag = todoTag
+            usersItem.todoBody = todoBody
+            usersItem.save()
+
+            return JsonResponse({
+            'status': True,
+            'message': 'itemEdited',
+            'item': usersItem.serialize()
+            })
 
 @csrf_exempt
 def register(request):
