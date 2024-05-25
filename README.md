@@ -6,7 +6,7 @@
 Todo App Full Stack uygulaması Playable Factory için  **sıfırdan** yapıldı. Back-end kısmında *Django*, Front-end kısmında ise *React* kullanıldı. Veri tabanı olarak ise Django'da standart olarak gelen *SQlite* kullanıldı. Kütüphane olarak Django'da çapraz istekleri yönetmek için `corsheaders` kütüphanesi kullanıldı. React'de ise end-point yönetimi için `react-router` ve UI(User Interface) olarak da `bootstrap` kütüphanesi kullanıldı.
 
 ## Çalıştırma Aşamaları
-Uygulamadaki root dosya kartaca adındaki dosyadır. Bu dosyanın içinde 3 adet element bulunmaktadır. Bunlar;
+Uygulamadaki root dosya todoApp adındaki dosyadır. Bu dosyanın içinde 3 adet element bulunmaktadır. Bunlar;
  - `django`
  - `react`
  - `README.md`   
